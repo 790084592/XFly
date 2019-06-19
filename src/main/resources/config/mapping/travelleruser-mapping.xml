@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping>
+    <entity name="DemoEntity" table="demo_entity_list" bean="com.xush.demo.orm.demo.DemoEntity">
+        <properties>
+       		<property name="id" field="ID_" caption="账号" nullable="false" unique="true" length="32" pk="true" />
+            <property name="name" field="NAME_" caption="昵称" nullable="true"  length="32" />
+         </properties>
+        
+        <indexes>
+			     <index name="INDEX_ID" fields="ID_" unique="true" />
+		    </indexes>
+    </entity>
+</mapping>  
