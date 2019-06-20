@@ -27,6 +27,7 @@
 
 	<!-- delete user -->
 	<delete id="delete" parameterType="int">
-		DELETE FROM XFLY_USER WHERE ID=#{0}
+		DELETE FROM XFLY_USER WHERE
+		ID=#{0}
 	</delete>
 </mapper>
