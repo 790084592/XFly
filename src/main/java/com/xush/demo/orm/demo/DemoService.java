@@ -1,36 +1,52 @@
 package com.xush.demo.orm.demo;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
+import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
+@ComponentScan({ "com.xush.demo.orm.demo" })
 @Service
 public class DemoService {
 
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
+//	@Autowired
+//	private JdbcTemplate jdbcTemplate;
+//
+//	public List getList() {
+//
+//		String sql = "select newsId_,location_,userName_,content_ from TravellerNews_list_";
+//		return (List) jdbcTemplate.query(sql, new RowMapper() {
+//			public DemoEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+//				String id = rs.getString("newsId_");
+//				System.out.println(id);
+//				DemoEntity entity = new DemoEntity();
+//				entity.setAge(1);
+//				entity.setId(11);
+//				entity.setPassword("xs123456");
+//				entity.setName("111");
+//
+//				return entity;
+//			}
+//
+//		});
+//	}
 
-	public List getList() {
+	@Resource
+	private DemoMapper DemoMapper;
 
-		
-		String sql = "select newsId_,location_,userName_,content_ from TravellerNews_list_";
-		return (List) jdbcTemplate.query(sql, new RowMapper() {
-			public DemoEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
-				String id = rs.getString("newsId_");
-				System.out.println(id);
-				DemoEntity entity = new DemoEntity();
-				entity.setAge(1);
-				entity.setId("11");
-				entity.setName("111");
+	public void insert(DemoEntity user) {
+		DemoMapper.insert(user);
+	}
 
-				return entity;
-			}
+	public void update(DemoEntity user) {
+		DemoMapper.update(user);
+	}
 
-		});
+	public DemoEntity find(int id) {
+		return DemoMapper.find(id);
+	}
+
+	public void delete(int id) {
+		DemoMapper.delete(id);
 	}
 }

@@ -15,8 +15,9 @@ public class DemoEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = -3302108388190270341L;
 
-	private String id;
+	private int id;
 	private String name;
+	private String password;
 	private int age;
 
 	public DemoEntity() {
@@ -25,33 +26,47 @@ public class DemoEntity implements Serializable {
 	
 	
 
-	public DemoEntity(String id, String name, int age) {
-		this.id = id;
-		this.name = name;
-		this.age = age;
-	}
-
-
-
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+
+
+	public void setId(int id) {
 		this.id = id;
 	}
+
+
 
 	public String getName() {
 		return name;
 	}
 
+
+
 	public void setName(String name) {
 		this.name = name;
 	}
 
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+
 	public int getAge() {
 		return age;
 	}
+
+
 
 	public void setAge(int age) {
 		this.age = age;
