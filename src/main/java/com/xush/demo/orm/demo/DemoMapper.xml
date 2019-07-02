@@ -8,7 +8,8 @@
 	<insert id="insert"
 		parameterType="com.xush.demo.orm.demo.DemoEntity">
 		INSERT INTO XFLY_USER(ID,NAME,PASSWORD,AGE)
-		VALUES(#{id},#{name},#{password},#{age});
+		VALUES(#{id},#{name},#{password},#{age})
+		<!-- 这里sql结尾不能加分号，否则报“ORA-00911”的错误 -->
 	</insert>
 
 	<!-- update user -->

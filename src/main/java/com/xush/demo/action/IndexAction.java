@@ -24,9 +24,8 @@ public class IndexAction {
 	@RequestMapping("/orm")
 	public String orm() {
 		// List list = service.getList();
-		DemoEntity entity = service.find(1);
-
-		return "index";
+		DemoEntity entity = service.find(2);
+		return entity.toString();
 	}
 
 }
