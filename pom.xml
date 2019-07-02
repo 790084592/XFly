@@ -46,12 +46,13 @@
 			<groupId>net.sourceforge.nekohtml</groupId>
 			<artifactId>nekohtml</artifactId>
 		</dependency>
-
+		<!-- ORM集成 ↓-->
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 			<version>1.1.1</version>
 		</dependency>
+		<!-- ORM集成 ↑-->
 
 		<!-- https://mvnrepository.com/artifact/log4j/log4j -->
 		<dependency>
@@ -70,16 +71,17 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<!-- Oracle数据库驱动 ↓-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
 		<dependency>
-			<!-- Oracle数据库驱动 -->
 			<groupId>com.esen.jdbc</groupId>
 			<artifactId>oracle_ojdbc6</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		<!-- Oracle数据库驱动 ↑-->
 	</dependencies>
 
 
