@@ -7,11 +7,13 @@ define(function() {
 	 * @param {Window} [options.wnd=window] window对象
 	 * 
 	 */
-	function HomePage(wnd) {
+	function HomePage(options) {
 		//js目录下
 		debugger;
-		this.wnd = wnd || window;
+		this.wnd = options.wnd || window;
 		this.doc = this.wnd.document;
+		this.container = options.container;
+		this.buttonDom = options.buttonDom;
 		this.initPage(); // 初始化界面
 	}
     
@@ -27,8 +29,8 @@ define(function() {
 	 * 定义分割面板
 	 */
 	HomePage.prototype.initSplitpane = function() {
-		this.container = this.doc.getElementById("xfly-layout-container")
-		this.container.style.cssText += ";background-color:#f1f1f1;";
+		//this.container = this.doc.getElementById("container")
+		//this.container.style.cssText += ";background-color:#f1f1f1;";
 	}
 
 	/**
