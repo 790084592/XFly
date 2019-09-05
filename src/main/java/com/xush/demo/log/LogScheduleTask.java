@@ -1,4 +1,4 @@
-package com.xush.demo.action;
+package com.xush.demo.log;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -13,13 +13,13 @@ import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 
 /**
- * 服务器启动时，创建数据库用户的相关监控线程
- * 用于检验失效实现，做出对应的失效处理
+ * 计划任务
+ * 1.处理记录日志
  * @author xush
  * @since 2019年7月12日
  */
 @Component
-public class SecurityDbUserManager {
+public class LogScheduleTask {
 
 	
 	//24小时的毫秒数
@@ -63,9 +63,8 @@ public class SecurityDbUserManager {
 	class EchoServer implements Runnable {
 		@Override
 		public void run() {
-			System.out.println("+++++++++++++++++");
-			System.out.println("test----ok-----success");
-			System.out.println("+++++++++++++++++++");
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			System.out.println(dateFormat.format(new Date()) + " INFO 日志计划任务启动完成");
 		}
 	}
 

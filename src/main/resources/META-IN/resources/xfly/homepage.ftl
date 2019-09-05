@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <title>首页 </title>
 </head>
-<link rel="stylesheet" type="text/css" href="/css/xhui.css" />
+<link rel="stylesheet" type="text/css" href="/css/coolblue/xhui.css" />
 <body>
 <div class="xhui-layout-container">
     <div class="eui-layout-container" id="container"></div>
