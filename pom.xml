@@ -35,6 +35,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<!-- 加入此依赖可能会导致，静态资源(js/css/png等)默认为 template中-->
 		</dependency>
 
 		<dependency>
@@ -82,8 +83,22 @@
 			<version>1.0.0</version>
 		</dependency>
 		<!-- Oracle数据库驱动 ↑-->
+		
+		<!--bootstrap UI集成 ↓-->
+		<dependency>  
+            <groupId>org.webjars</groupId>  
+            <artifactId>bootstrap</artifactId>  
+            <version>3.3.5</version>  
+        </dependency>  
+        <dependency>  
+            <groupId>org.webjars</groupId>  
+            <artifactId>jquery</artifactId>  
+            <version>3.1.1</version>  
+        </dependency>
+        <!-- bootstrap UI集成 ↑-->
 	</dependencies>
 
+	
 
 
 	<build>

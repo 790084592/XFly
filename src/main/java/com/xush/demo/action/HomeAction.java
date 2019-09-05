@@ -16,5 +16,11 @@ public class HomeAction {
 		xthreadpool.addTask("1");
 		return "homepage";
 	}
+	
+	@RequestMapping("/bootstrapDemo")
+	public String toBootstrapDemoPage(Model model) {
+		model.addAttribute("title", "bootstrap示例");
+		return "bootstrap_demo";
+	}
 
 }
