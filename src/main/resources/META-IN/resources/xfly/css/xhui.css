@@ -11586,4 +11586,40 @@ button, input, optgroup, option, select, textarea {
   background: #fff;
 }
 
+.xhui-height-half {
+	height: 50%;
+}
+
+.xhui-change-item {
+	background: #ffffff;
+	boder-radius: 5px;
+}
+
+.xhui-change-bg {
+	background: #f0f2f5;
+}
+
+.xhui-title {
+	height: 26px;
+	text-align:left;
+	font-size:14px;
+	font-weight: 700;
+}
+
+.xhui-relative{
+	position: relative;
+}
+
+.xhui-top-10{
+	top: 10px;
+}
+
+.xhui-top-30 {
+	top: 30px;
+}
+
+.xhui-top-40 {
+	top: 40px;
+}
+
 /*# sourceMappingURL=xhui.css.map */
