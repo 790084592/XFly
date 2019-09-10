@@ -39,13 +39,9 @@ public class ActionExcel2Controller {
 	@RequestMapping(value = "/excel/import")
 	@ResponseBody
 	public String excelImport(HttpServletRequest req) throws Exception {
-
-		Collection<Part> parts = req.getParts();
-		InputStream fis = null;
-		for (Part part : parts) {
-			fis = part.getInputStream();
-		}
-		read2007Xlsx(fis);
+		String s = req.getParameter("xs");
+		InputStream file =  req.getPart("file").getInputStream();
+		read2007Xlsx(file);
 		return "ok";
 	}
 

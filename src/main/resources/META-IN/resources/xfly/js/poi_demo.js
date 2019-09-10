@@ -42,7 +42,6 @@ define(["third/echarts.min"], function(echarts) {
 		this.container.innerHTML = htmlStr.join("");
 		var button = this.doc.getElementById("myStateButton");
 		button.onclick = function(){
-
 			self.UpladFile();
 		}
 // 		此为一种获取后台数据的办法
@@ -54,11 +53,14 @@ define(["third/echarts.min"], function(echarts) {
 	//上传文件方法
 	POIDemo.prototype.UpladFile = function() {
         var fileObj = this.doc.getElementById("file").files[0]; // js 获取文件对象
-        var url =  "http://127.0.0.1:8888//excel/import"; // 接收上传文件的后台地址
-
-        var form = new FormData(); // FormData 对象
+        if(!fileObj){
+        	alert("上传表格文件不得为空");
+        	return;
+        }
+        var url =  "/excel/import"; // 接收上传文件的后台地址
+        var form = new FormData();  // FormData 对象
+        form.append("xs", "xstest");
         form.append("file", fileObj); // 文件对象
-
         var xhr = new XMLHttpRequest();  // XMLHttpRequest 对象
         xhr.open("post", url, false); //post方式，url为服务器请求地址，true 该参数规定请求是否异步处理。
         xhr.onload = uploadComplete; //请求完成
@@ -75,8 +77,6 @@ define(["third/echarts.min"], function(echarts) {
         }else{
         	alert("上传失败1！");
         }
-         
-
     }
     //上传失败
     function uploadFailed(evt) {

@@ -39,7 +39,7 @@ public class LogScheduleTask {
 		initDelay = initDelay > 0 ? initDelay : ONE_DAY + initDelay;
 		//创建一个周期定时线程，延迟initDelay毫秒后运行，周期为ONE_DAY
 		ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-		executor.scheduleAtFixedRate(new EchoServer(), 0, 1000*60, TimeUnit.MILLISECONDS);
+		executor.scheduleAtFixedRate(new EchoServer(), 0, 1000*60*10, TimeUnit.MILLISECONDS);
 	}
 	
 	/**
