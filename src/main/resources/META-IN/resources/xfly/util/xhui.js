@@ -218,6 +218,37 @@
      */
     isApp: function(){
     	return "undefined" != typeof JsInterface;
+    },
+    /**
+     * post请求后台
+     * {
+     *   url:  "127.0.0.1:8080", (默认为当前访问地址)
+     *   action: "/excel/import" ,
+     *   datas: {},
+     *   async: false,           (是否异步，默认为同步,false)
+     *   callback: function(){},
+     *   error: function(){}
+     * }
+     */
+    post: function(querydata){
+    	var url =  (querydata.url || "") + querydata.action;
+    	var datas = querydata.datas;
+    	var async = querydata.async || false;
+    	var callback = querydata.callback;
+    	var error = querydata.error;
+        var form = new FormData();
+        for(var dkey in datas){
+        	form.append(dkey, datas[dkey]);
+        }
+        var xhr = new XMLHttpRequest();  // XMLHttpRequest 对象
+        xhr.open("post", url, async); //post方式，url为服务器请求地址，true 该参数规定请求是否异步处理。
+        if(isFunction(callback)){	  //请求完成
+        	 xhr.onload = callback;
+        }
+        if(isFunction(error)){
+       	 xhr.onerror = error;
+        }
+        xhr.send(form); //开始上传，发送form数据
     }
   });
  
