@@ -57,32 +57,26 @@ define(["third/echarts.min"], function(echarts) {
         	alert("上传表格文件不得为空");
         	return;
         }
-        var url =  "/excel/import"; // 接收上传文件的后台地址
-        var form = new FormData();  // FormData 对象
-        form.append("xs", "xstest");
-        form.append("file", fileObj); // 文件对象
-        var xhr = new XMLHttpRequest();  // XMLHttpRequest 对象
-        xhr.open("post", url, false); //post方式，url为服务器请求地址，true 该参数规定请求是否异步处理。
-        xhr.onload = uploadComplete; //请求完成
-        xhr.onerror =  uploadFailed; //请求失败
-        xhr.send(form); //开始上传，发送form数据
+        var type = fileObj.name.split(".")[1];
+        XHUI.post({
+        	action : "/excel/import",
+        	datas:{
+        		type: type,
+        		file: fileObj
+        	},
+        	callback: function(evt){
+        		var data = evt.target.responseText;
+                if(data){
+                	 alert("上传成功！\n" + data);
+                }else{
+                	alert("上传失败1！");
+                }
+        	},
+        	error:function(evt) {
+            	alert("上传失败2！");
+            }
+        });
     }
-	
-	//上传成功响应
-    function uploadComplete(evt) {
-        //服务断接收完文件返回的结果
-        var data = evt.target.responseText;
-        if(data){
-        	 alert("上传成功！");
-        }else{
-        	alert("上传失败1！");
-        }
-    }
-    //上传失败
-    function uploadFailed(evt) {
-    	alert("上传失败2！");
-    }
-
 	
 	return {
 		POIDemo : POIDemo
