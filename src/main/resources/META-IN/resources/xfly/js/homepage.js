@@ -20,6 +20,7 @@ define(["third/echarts.min"], function(echarts) {
 		this.doc = null;
 		this.container = null;
 		this.pineChartDom = null;
+		this.barChartDom = null;
 	}
 	
 	
@@ -28,6 +29,7 @@ define(["third/echarts.min"], function(echarts) {
      */
 	HomePage.prototype.initPage = function() {
 		this.initSplitpane();	   //初始化界面	
+		this.initBarChart();       //初始化条形图
 		this.initPieChart();	   //初始化饼图
 	} 
 	
@@ -62,13 +64,13 @@ define(["third/echarts.min"], function(echarts) {
 		htmlstr.push('								<div class="xhui-layout-row-3 xhui-layout-row-last xhui-row xhui-padding-bottom-10 xhui-top-30" id="container1-1">');
 		htmlstr.push('									<div class="xhui-col-xl-6 xhui-height-max xhui-align-center" style="border-right:1px solid #f0f0f0;">');
 		htmlstr.push('										<div class="lc-align-center ">');
-		htmlstr.push('											<div class=" xhui-num " id="near-size"></div>');
+		htmlstr.push('											<div class=" xhui-blue-num-text " id="near-size">1 B</div>');
 		htmlstr.push('											<label>' + sizesTitle + '</label>');
 		htmlstr.push('										</div>');
 		htmlstr.push('									</div>');
 		htmlstr.push('									<div class="xhui-col-xl-6 xhui-height-max xhui-align-center ">');
 		htmlstr.push('										<div class="lc-align-center ">');
-		htmlstr.push('											<div class=" xhui-num" id="near-count"></div>');
+		htmlstr.push('											<div class=" xhui-blue-num-text" id="near-count">5 行</div>');
 		htmlstr.push('											<label>' + countsTitle + '</label>');
 		htmlstr.push('										</div>');
 		htmlstr.push('									</div>');
@@ -90,13 +92,13 @@ define(["third/echarts.min"], function(echarts) {
 		htmlstr.push('								<div class="xhui-layout-row-3 xhui-layout-row-last xhui-row xhui-padding-bottom-10 xhui-top-30" id="container1-2">');
 		htmlstr.push('									<div class="xhui-col-xl-6 xhui-height-max xhui-align-center" style="border-right:1px solid #f0f0f0;">');
 		htmlstr.push('										<div class="lc-align-center ">');
-		htmlstr.push('											<div class=" xhui-num " id="off-size"></div>');
+		htmlstr.push('											<div class=" xhui-blue-num-text " id="off-size">24 KB</div>');
 		htmlstr.push('											<label>' + sizesTitle + '</label>');
 		htmlstr.push('										</div>');
 		htmlstr.push('									</div>');
 		htmlstr.push('									<div class="xhui-col-xl-6 xhui-height-max xhui-align-center ">');
 		htmlstr.push('										<div class="lc-align-center ">');
-		htmlstr.push('											<div class=" xhui-num" id="off-count"></div>');
+		htmlstr.push('											<div class=" xhui-blue-num-text" id="off-count">53 行</div>');
 		htmlstr.push('											<label>' + countsTitle + '</label>');
 		htmlstr.push('										</div>');
 		htmlstr.push('									</div>');
@@ -118,13 +120,13 @@ define(["third/echarts.min"], function(echarts) {
 		htmlstr.push('								<div class="xhui-layout-row-3 xhui-layout-row-last xhui-row xhui-padding-bottom-10 xhui-top-30" id="container1-3">');
 		htmlstr.push('									<div class="xhui-col-xl-6 xhui-height-max xhui-align-center" style="border-right:1px solid #f0f0f0;">');
 		htmlstr.push('										<div class="lc-align-center ">');
-		htmlstr.push('											<div class=" xhui-num " id="destory-size"></div>');
+		htmlstr.push('											<div class=" xhui-blue-num-text " id="destory-size">545 B</div>');
 		htmlstr.push('											<label>' + sizesTitle + '</label>');
 		htmlstr.push('										</div>');
 		htmlstr.push('									</div>');
 		htmlstr.push('									<div class="xhui-col-xl-6 xhui-height-max xhui-align-center ">');
 		htmlstr.push('										<div class="lc-align-center ">');
-		htmlstr.push('											<div class=" xhui-num" id="destory-count"></div>');
+		htmlstr.push('											<div class=" xhui-blue-num-text" id="destory-count">15  行</div>');
 		htmlstr.push('											<label>' + countsTitle + '</label>');
 		htmlstr.push('										</div>');
 		htmlstr.push('									</div>');
@@ -215,7 +217,8 @@ define(["third/echarts.min"], function(echarts) {
 		htmlstr.push('</div>');
 
 		this.container.innerHTML = htmlstr.join("");
-		this.pineChartDom = this.doc.getElementById("container3-3");
+		this.barChartDom = this.doc.getElementById("barchart");
+		this.pineChartDom = this.doc.getElementById("piechart");
 	}
 	
 	/**
@@ -258,6 +261,7 @@ define(["third/echarts.min"], function(echarts) {
 			{name: "离线", value: 1100, count: 0},
 			{name: "近线", value: 7134, count: 0}
 		];
+		
 		self.nearPieGraph.setOption(self.nearPieOption);
 	}
 	
@@ -281,77 +285,96 @@ define(["third/echarts.min"], function(echarts) {
 //		})
 //	}
 //	
-//	/**
-//	 * 初始化条形图
-//	 */
-//	xhuiMonitor.prototype.initBarChart = function() {
-//		var self = this;
-//		this.barGraph = echarts.init(self.barChartDom);
-//		this.barOption = {
-//				tooltip: {
-//						trigger: 'axis'
-//				},
-//				grid: {
-//					show:false,
-//					top:'30',
-//					bottom:'30',
-//					right:'60',
-//					left:'90'
-//				},
-//				legend: {
-//					data: [I18N.getString("edatalifecycle.xhuimoniter.js.xhuimonitor.js.countstitle", "记录行数"), '归档次数']
-//				},
-//				xAxis: [{
-//						type: 'category',
-//						data: null,
-//						axisPointer: {
-//					                type: 'shadow'
-//						},
-//						axisTick: {
-//							show: true,
-//							interval: 0
-//						}
-//					}],
-//				//设置两个y轴，左边显示数量，右边显示概率
-//				yAxis: [{
-//							type: 'value',
-//							name: I18N.getString("edatalifecycle.xhuimoniter.js.xhuimonitor.js.countstitle", "记录行数"),
-//							show:  true,
-//							max: 1000,
-//							interval: 200
-//						},{
-//							type: 'value',
-//							name: I18N.getString("edatalifecycle.xhuimoniter.js.xhuimonitor.js.archive_times", "归档次数"),
-//							min: 0,
-//							max: 100,
-//							interval: 20
-//						}],
-//				series: [{
-//							name: I18N.getString("edatalifecycle.xhuimoniter.js.xhuimonitor.js.countstitle", "记录行数"),
-//							type: 'bar',
-//							data: null,
-//							barWidth : '50%',	
-//							itemStyle: {
-//								normal: {
-//									color:"#31B4C9"
-//						        	}
-//						    	}					            
-//					      },{
-//								name: I18N.getString("edatalifecycle.xhuimoniter.js.xhuimonitor.js.archive_times", "归档次数"),
-//					            type: 'line',
-//					            yAxisIndex: 1,    //这里要设置哪个y轴，默认是最左边的是0，然后1，2顺序来。
-//					            data: null,
-//								smooth:true,
-//								symbol:'none',
-//					            itemStyle:{
-//					            	normal:{
-//					            		color:"#FF8C00"
-//					           	 	}
-//					            }
-//					      }]
-//					};
-//		self.barGraph.setOption(self.barOption);
-//	}
+	/**
+	 * 初始化条形图
+	 */
+	HomePage.prototype.initBarChart = function() {
+		var self = this;
+		this.barGraph = echarts.init(self.barChartDom);
+		this.barOption = {
+				tooltip: {
+						trigger: 'axis'
+				},
+				grid: {
+					show:false,
+					top:'30',
+					bottom:'30',
+					right:'60',
+					left:'90'
+				},
+				legend: {
+					data: ["记录行数", '归档次数']
+				},
+				xAxis: [{
+						type: 'category',
+						data: null,
+						axisPointer: {
+					                type: 'shadow'
+						},
+						axisTick: {
+							show: true,
+							interval: 0
+						}
+					}],
+				//设置两个y轴，左边显示数量，右边显示概率
+				yAxis: [{
+							type: 'value',
+							name: "记录行数",
+							show:  true,
+							max: 1000,
+							interval: 200
+						},{
+							type: 'value',
+							name: "归档次数",
+							min: 0,
+							max: 100,
+							interval: 20
+						}],
+				series: [{
+							name: "记录行数",
+							type: 'bar',
+							data: null,
+							barWidth : '50%',	
+							itemStyle: {
+								normal: {
+									color:"#31B4C9"
+						        	}
+						    	}					            
+					      },{
+								name: "归档次数",
+					            type: 'line',
+					            yAxisIndex: 1,    //这里要设置哪个y轴，默认是最左边的是0，然后1，2顺序来。
+					            data: null,
+								smooth:true,
+								symbol:'none',
+					            itemStyle:{
+					            	normal:{
+					            		color:"#FF8C00"
+					           	 	}
+					            }
+					      }]
+					};
+		self.barGraph.setOption(self.barOption);
+		
+		//假数据
+		var names = ["资产1", "删除资产01", "testView", "cmw测试"];
+		var times = [20, 5, 45, 15];
+		var counts = [15, 45, 20, 5];
+ 		var maxTimes = 45;
+		var minTimes = 5;
+		var maxCounts = 45;
+		var minCounts = 5;
+		self.barOption.xAxis[0]["data"] = names;
+		self.barOption.series[0]["data"] = counts;
+		self.barOption.series[1]["data"] = times;
+		self.barOption.yAxis[0]["max"] = maxCounts;
+		self.barOption.yAxis[0]["min"] = minCounts;
+		self.barOption.yAxis[0]["interval"] = Math.ceil((maxCounts-minCounts)/5);
+		self.barOption.yAxis[1]["max"] = maxTimes;
+		self.barOption.yAxis[1]["min"] = minTimes;
+		self.barOption.yAxis[1]["interval"] = Math.ceil((maxTimes-minTimes)/5);	
+		self.barGraph.setOption(self.barOption);
+	}
 //	
 //	/**
 //	 * 获取并更新条形图数据
