@@ -3,8 +3,9 @@ define(["third/echarts.min"], function(echarts) {
 
     
 	/**
-	 * bootstrap示例页面
-	 * 1.暂时只尝试了按钮
+	 * 登录页面
+	 * 1.登录和登出
+	 * 2.伪装页面
 	 */
 	function LoginFrame(options) {
 		this.wnd = options.wnd || window;

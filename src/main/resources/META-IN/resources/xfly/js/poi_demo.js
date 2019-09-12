@@ -3,8 +3,8 @@ define(["third/echarts.min"], function(echarts) {
 
     
 	/**
-	 * bootstrap示例页面
-	 * 1.暂时只尝试了按钮
+	 * POI例页面
+	 * 1.上传Excel文件被后台解析
 	 */
 	function POIDemo(options) {
 		this.wnd = options.wnd || window;

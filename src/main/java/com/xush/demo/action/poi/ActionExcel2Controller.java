@@ -14,6 +14,8 @@ import com.xush.demo.util.ExcelFunc;
 
 /**
    *   解析excel
+ * 1.跳转到POI示例使用页面
+ * 2.解析上传的Excel
  * @author xush
  * @since  2019年9月7日
  */
