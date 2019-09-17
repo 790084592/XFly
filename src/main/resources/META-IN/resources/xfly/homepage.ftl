@@ -9,7 +9,7 @@
     <div class="eui-layout-container" id="container"></div>
 </div>
 </body>
-<script src="third/require.js"></script>
+<script src="/third/require.js"></script>
 <script>
 	require(['../js/homepage'], function (home){
 		var demo = new home.HomePage({
