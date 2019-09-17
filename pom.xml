@@ -24,6 +24,14 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<!-- WAR包导出，部署在Tomcat上，需进行的过滤设置↓-->
+			<exclusions>
+        		<exclusion>
+            		<groupId>org.springframework.boot</groupId>
+           			 <artifactId>spring-boot-starter-tomcat</artifactId>
+       			</exclusion>
+ 	  		</exclusions>
+ 	  		<!-- WAR包导出，部署在Tomcat上，需进行的过滤设置↑-->
 		</dependency>
 
 		<dependency>
@@ -126,11 +134,7 @@
    		 <version>4.1</version>
 		</dependency>
 		<!--POI 集成EXCEL解析↑-->
-
 	</dependencies>
-
-	
-
 
 	<build>
 		<plugins>
@@ -139,9 +143,6 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-
 	</build>
-
-
 
 </project>

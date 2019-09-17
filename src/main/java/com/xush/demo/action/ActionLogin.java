@@ -9,19 +9,30 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
    *   处理登录页面请求
  * 1.跳转到登录页
- * 2.检验登录  
+ * 2.检验登录
+ * 3.注销登录
  * @author xush
  * @since  2019年9月12日
  */
 @Controller
-public class LoginAction {
-
+public class ActionLogin {
+	
+	/**
+	   *   跳转到登录页面
+	 * @param req
+	 * @return
+	 */
 	@RequestMapping("/login")
 	public String login(HttpServletRequest req) {
 		req.setAttribute("title", "登录");
 		return "login";
 	}
 
+	/**
+	    *   检验登录
+	 * @param req
+	 * @return
+	 */
 	@RequestMapping("/dologin")
 	@ResponseBody
 	public String doLogin(HttpServletRequest req) {
@@ -37,6 +48,10 @@ public class LoginAction {
 		}
 	}
 	
+	/**
+	   *    请求注销，登出
+	 * @param req
+	 */
 	@RequestMapping("/dologout")
 	@ResponseBody
 	public void doLogout(HttpServletRequest req) {

@@ -14,21 +14,31 @@ import com.xush.demo.util.ExcelFunc;
 
 /**
    *   解析excel
- * 1.跳转到POI示例使用页面
- * 2.解析上传的Excel
+ * 1.跳转到Excel解析示例页面
+ * 2.获取上传的Excel并解析
  * @author xush
  * @since  2019年9月7日
  */
 @Controller
-public class ActionExcel2Controller {
+public class ActionExcelImport {
 
-	@RequestMapping("/poiExcelDemo")
+	/**
+	   *    跳转到Excel解析示例页面
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/ExcelDemo")
 	public String toBootstrapDemoPage(Model model) {
 		model.addAttribute("title", "POI示例");
 		return "poi_demo";
 	}
 
-	//上传文件的接口
+	/**
+	   *   获取上传的Excel并解析
+	 * @param req
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/excel/import")
 	@ResponseBody
 	public ObjectNode excelImport(HttpServletRequest req) throws Exception {
