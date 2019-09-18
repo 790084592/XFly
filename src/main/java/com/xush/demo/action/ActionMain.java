@@ -25,6 +25,6 @@ public class ActionMain {
 		model.addAttribute("name", "首页");
 		XThreadPool xthreadpool = XThreadPool.getInstance();
 		xthreadpool.addTask("1");
-		return "homepage";
+		return "mainpage";
 	}
 }
