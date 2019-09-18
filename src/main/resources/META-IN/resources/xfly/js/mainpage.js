@@ -30,6 +30,7 @@ define(["third/echarts.min"], function(echarts) {
 	MainPage.prototype.initPage = function() {
 		this.initSplitpane();	   //初始化界面	
 		this.initHeader();         //初始顶部栏
+		this.bindHeaderEvent();    //绑定顶部按钮栏事件
 	} 
 	
 	/**
@@ -37,60 +38,12 @@ define(["third/echarts.min"], function(echarts) {
 	 */
 	MainPage.prototype.initSplitpane = function() {
 		var htmlstr = [];
-		var waitTitle =  "正在加载...";
-		
-
-		htmlstr.push('			<div class="xhui-row xhui-change-bg " style="height:100%;width:100%;" id="line3">');
-		//近、离线归档
-		htmlstr.push('	  			<div class="xhui-col-xl-4 xhui-padding-top-5 xhui-padding-right-5 xhui-height-max">');
-		htmlstr.push('					<div class="xhui-change-item xhui-align-center xhui-height-max xhui-relative">');
-		htmlstr.push('		  				<div class="xhui-layout-row-1 xhui-layout-row-first xhui-padding-left-5 xhui-padding-right-10 " id="lineAreaArchiveTab">');
-		htmlstr.push('	  	  				</div>');
-		htmlstr.push('		  				<div class="xhui-layout-row-3 xhui-layout-row-last xhui-padding-left-10 xhui-padding-right-10 xhui-top-30" id="container3-1">');
-		htmlstr.push('	  						<div class="xhui-height-max xhui-padding-top-15" id="nearofflist"></div>');
-		htmlstr.push('	  	  				</div>');
-		htmlstr.push('						<div class="xhui-change-item xhui-height-max xhui-hide xhui-align-center xhui-weaken" id="wait-container3-1">');
-		htmlstr.push('							<div class="xhui-wait">');
-		htmlstr.push('								<i class="xhui-icon xhui-anim xhui-anim-rotate xhui-anim-loop">&#xefa1;</i><span>' + waitTitle + '</span>');
-		htmlstr.push('							</div>');
-		htmlstr.push('						</div>');
-		htmlstr.push('					</div>');
-		htmlstr.push('	  			</div>');
-		//近线归档和销毁Top5
-		htmlstr.push('	 			<div class="xhui-col-xl-4 xhui-padding-top-5 xhui-padding-left-5 xhui-height-max">');
-		htmlstr.push('					<div class="xhui-change-item xhui-align-center xhui-height-max xhui-relative">');
-		htmlstr.push('		  				<div class="xhui-layout-row-1 xhui-layout-row-first xhui-padding-left-5 xhui-padding-right-10 " id="top5Tab">');
-		htmlstr.push('	  	  				</div>');
-		htmlstr.push('		  				<div class="xhui-layout-row-3 xhui-layout-row-last xhui-padding-left-10 xhui-padding-right-10 xhui-top-30" id="container3-2">');
-		htmlstr.push('	  						<div class="xhui-height-max xhui-padding-top-15" id="toplist"></div>'); 
-		htmlstr.push('	  					</div>');
-		htmlstr.push('						<div class="xhui-change-item xhui-height-max xhui-hide xhui-align-center xhui-weaken" id="wait-container3-2">');
-		htmlstr.push('							<div class="xhui-wait">');
-		htmlstr.push('								<i class="xhui-icon xhui-anim xhui-anim-rotate xhui-anim-loop">&#xefa1;</i><span>' + waitTitle + '</span>');
-		htmlstr.push('							</div>');
-		htmlstr.push('						</div>');
-		htmlstr.push('					</div>');
-		htmlstr.push('	  			</div>');
-		//归档资产分布
-		htmlstr.push('	 			<div class="xhui-col-xl-4 xhui-padding-top-5 xhui-padding-left-5 xhui-height-max">');
-		htmlstr.push('					<div class="xhui-change-item xhui-align-center xhui-height-max xhui-relative">');
-		htmlstr.push('		  				<div class="xhui-layout-row-1 xhui-layout-row-first xhui-padding-top-5 xhui-padding-left-20 xhui-title">');
-		htmlstr.push('							<img src="images/safe_zc.png" class="xhui-float-left xhui-padding-right-5" style="padding-top:2px;"/>');
-		htmlstr.push('							<label>' + 3 + '</label>');
-		htmlstr.push('		  				</div>');
-		htmlstr.push('		  				<div class="xhui-layout-row-3 xhui-layout-row-last xhui-padding-left-10 xhui-padding-right-10 xhui-top-30" id="container3-3">');
-		htmlstr.push('	  						<div class="xhui-col-xl-12 xhui-height-max" id="piechart"></div>');
-		htmlstr.push('	  	  				</div>');
-		htmlstr.push('						<div class="xhui-change-item xhui-height-max xhui-hide xhui-align-center xhui-weaken" id="wait-container3-3">');
-		htmlstr.push('							<div class="xhui-wait">');
-		htmlstr.push('								<i class="xhui-icon xhui-anim xhui-anim-rotate xhui-anim-loop">&#xefa1;</i><span>' + waitTitle + '</span>');
-		htmlstr.push('							</div>');
-		htmlstr.push('						</div>');
-		htmlstr.push('					</div>');
-		htmlstr.push('	  			</div>');
-		htmlstr.push('			</div>');
+	    htmlstr.push("<iframe style='width:100%; height:calc(100% - 34px)' frameborder='0' marginheight='0' marginwidth='0' allowfullscreen='true'></iframe>");
+	    
 		this.container.innerHTML = htmlstr.join("");
-		
+		debugger
+		this.mainFrame = this.container.firstChild;
+		this.mainFrame.src = "/login";
 	}
 	
 
@@ -105,24 +58,36 @@ define(["third/echarts.min"], function(echarts) {
 		htmlstr.push('		<ul class="xhui-coolbar-group">');
 		htmlstr.push('		<li class="xhui-coolbar-item xhui-coolbar-group" >');
 		htmlstr.push('			<div id="datasource"><span class="xhui-coolbar-item-text">' + "数据源"+ '</span></div>');
-		htmlstr.push('			<span class="xhui-coolbar-more"></span>');
+		htmlstr.push('			<span class="xhui-coolbar-more  xhui-hide"></span>');
 		htmlstr.push('		</li>');
 		htmlstr.push('		<li class="xhui-coolbar-item xhui-coolbar-group" id="datasubjct">');
 		htmlstr.push('			<span class="xhui-coolbar-item-text">' + "数据集 "+ '</span>');
-		htmlstr.push('			<span class="xhui-coolbar-more"></span>');
+		htmlstr.push('			<span class="xhui-coolbar-more  xhui-hide"></span>');
 		htmlstr.push('		</li>');
 		htmlstr.push('		<li class="xhui-coolbar-item xhui-coolbar-group" id="dataanalyse">');
 		htmlstr.push('			<span class="xhui-coolbar-item-text">' + "数据分析 "+ '</span>');
+		htmlstr.push('			<span class="xhui-coolbar-more xhui-hide"></span>');
+		htmlstr.push('		</li>');
+		htmlstr.push('		<li class="xhui-coolbar-item xhui-coolbar-group" id="systemset">');
+		htmlstr.push('			<span class="xhui-coolbar-item-text">' + "系统设置"+ '</span>');
 		htmlstr.push('			<span class="xhui-coolbar-more"></span>');
 		htmlstr.push('		</li>');
 		htmlstr.push('		</ul">');
 		htmlstr.push('	</div>');
 		this.header.innerHTML = htmlstr.join("");
-		$("#datasource").hover(function(){						 
-			 alert("1");
-		},function(){
-			 alert("0");
-		});
+	}
+	
+	/**
+	 * 绑定顶部按钮栏事件
+	 */
+	MainPage.prototype.bindHeaderEvent = function() {
+		this.dSourceBtn = this.doc.getElementById("datasource");
+		this.dSourceBtn.onclick = function(){
+			this.mainFrame.src = "/UIDemo";
+		}
+		this.dSubjectBtn = this.doc.getElementById("datasubject");
+		this.dAnalyseBtn = this.doc.getElementById("dataanalyse");
+		this.systemBtn = this.doc.getElementById("systemset");
 	}
 	
 	return {
