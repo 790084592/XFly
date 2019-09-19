@@ -21,6 +21,6 @@ public class ActionBootstrap {
 	@RequestMapping("/UIDemo")
 	public String toBootstrapDemoPage(Model model) {
 		model.addAttribute("title", "bootstrap示例");
-		return "bootstrap_demo";
+		return "bootstrap/bootstrap_demo";
 	}
 }

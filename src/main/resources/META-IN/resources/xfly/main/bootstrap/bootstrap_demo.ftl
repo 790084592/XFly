@@ -12,11 +12,11 @@
 <script src="/webjars/jquery/3.1.1/jquery.min.js"></script>  
 <script src="/webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script> 
 <link rel="stylesheet" href="/webjars/bootstrap/3.3.5/css/bootstrap.min.css" />
-<script src="/util/xhui.js"></script>
+
 <script src="/third/require.js"></script>
 <script>
-	require(['../js/login'], function (loginFrame){
-		var demo = new loginFrame.LoginFrame({
+	require(['../main/bootstrap/js/bootstrap_demo'], function (bsdemo){
+		var demo = new bsdemo.BootStrapDemo({
 			wnd:window,
 			container:document.getElementById("container")
 		});

@@ -30,7 +30,7 @@ public class ActionExcelImport {
 	@RequestMapping("/ExcelDemo")
 	public String toBootstrapDemoPage(Model model) {
 		model.addAttribute("title", "POI示例");
-		return "poi_demo";
+		return "poi/poi_demo";
 	}
 
 	/**

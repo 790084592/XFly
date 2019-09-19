@@ -15,8 +15,8 @@
 <script src="/third/require.js"></script>
 <script src="/third/jquery-1.9.1.min.js"></script>
 <script>
-	require(['../js/mainpage'], function (page){
-		var demo = new page.MainPage({
+	require(['../main/js/mainframe'], function (frame){
+		var demo = new frame.MainFrame({
 			wnd:window,
 			header: document.getElementById("header"),
 			container: document.getElementById("container")

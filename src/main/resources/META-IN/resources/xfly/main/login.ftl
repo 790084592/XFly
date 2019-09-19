@@ -15,8 +15,9 @@
 <script src="/util/xhui.js"></script>
 <script src="/third/require.js"></script>
 <script>
-	require(['../js/poi_demo'], function (poidemo){
-		var demo = new poidemo.POIDemo({
+debugger
+	require(['../main/js/login'], function (loginFrame){
+		var frame = new loginFrame.LoginFrame({
 			wnd:window,
 			container:document.getElementById("container")
 		});

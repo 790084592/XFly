@@ -1,11 +1,12 @@
 define(["third/echarts.min"], function(echarts) {   
 	"use strict"
 
+	var DATASOURCE_URL = "/UIDemo";
     
 	/**
 	 * 网格页面
 	 */
-	function MainPage(options) {
+	function MainFrame(options) {
 		this.wnd = options.wnd || window;
 		this.doc = this.wnd.document;
 		this.header = options.header;
@@ -16,7 +17,7 @@ define(["third/echarts.min"], function(echarts) {
 	/**
 	 * 销毁方法
 	 */
-	MainPage.prototype.dispose = function() {
+	MainFrame.prototype.dispose = function() {
 		this.wnd = null;
 		this.doc = null;
 		this.header = null;
@@ -27,7 +28,7 @@ define(["third/echarts.min"], function(echarts) {
     /**
      * 初始化界面
      */
-	MainPage.prototype.initPage = function() {
+	MainFrame.prototype.initPage = function() {
 		this.initSplitpane();	   //初始化界面	
 		this.initHeader();         //初始顶部栏
 		this.bindHeaderEvent();    //绑定顶部按钮栏事件
@@ -36,12 +37,10 @@ define(["third/echarts.min"], function(echarts) {
 	/**
 	 * 定义界面结构
 	 */
-	MainPage.prototype.initSplitpane = function() {
+	MainFrame.prototype.initSplitpane = function() {
 		var htmlstr = [];
-	    htmlstr.push("<iframe style='width:100%; height:calc(100% - 34px)' frameborder='0' marginheight='0' marginwidth='0' allowfullscreen='true'></iframe>");
-	    
+	    htmlstr.push("<iframe style='width:100%; height:calc(100% - 34px)' frameborder='0' marginheight='0' marginwidth='0' allowfullscreen='true'></iframe>");  
 		this.container.innerHTML = htmlstr.join("");
-		debugger
 		this.mainFrame = this.container.firstChild;
 		this.mainFrame.src = "/login";
 	}
@@ -50,7 +49,7 @@ define(["third/echarts.min"], function(echarts) {
 	/**
 	 * 定义界面结构
 	 */
-	MainPage.prototype.initHeader = function() {
+	MainFrame.prototype.initHeader = function() {
 		var htmlstr = [];
 		htmlstr.push('<div class="xhui-layout-logo " ></div>');
 		htmlstr.push('<div class="xhui-layout-header-left" >');
@@ -80,10 +79,10 @@ define(["third/echarts.min"], function(echarts) {
 	/**
 	 * 绑定顶部按钮栏事件
 	 */
-	MainPage.prototype.bindHeaderEvent = function() {
+	MainFrame.prototype.bindHeaderEvent = function() {
 		this.dSourceBtn = this.doc.getElementById("datasource");
 		this.dSourceBtn.onclick = function(){
-			this.mainFrame.src = "/UIDemo";
+			this.mainFrame.src = DATASOURCE_URL;
 		}
 		this.dSubjectBtn = this.doc.getElementById("datasubject");
 		this.dAnalyseBtn = this.doc.getElementById("dataanalyse");
@@ -91,6 +90,6 @@ define(["third/echarts.min"], function(echarts) {
 	}
 	
 	return {
-		MainPage : MainPage
+		MainFrame : MainFrame
 	}
 });
