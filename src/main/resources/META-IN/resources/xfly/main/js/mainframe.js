@@ -1,7 +1,9 @@
 define(["third/echarts.min"], function(echarts) {   
 	"use strict"
 
-	var DATASOURCE_URL = "/UIDemo";
+	var DATASOURCE_URL = "/datasource";
+	var DATASUBJECT_URL = "/datasubject";
+	var LOGIN_URL = "/login";
     
 	/**
 	 * 网格页面
@@ -39,10 +41,9 @@ define(["third/echarts.min"], function(echarts) {
 	 */
 	MainFrame.prototype.initSplitpane = function() {
 		var htmlstr = [];
-	    htmlstr.push("<iframe style='width:100%; height:calc(100% - 34px)' frameborder='0' marginheight='0' marginwidth='0' allowfullscreen='true'></iframe>");  
+	    htmlstr.push("<iframe style='width:100%; height:100%' frameborder='0' marginheight='0' marginwidth='0' allowfullscreen='true'></iframe>");  
 		this.container.innerHTML = htmlstr.join("");
 		this.mainFrame = this.container.firstChild;
-		this.mainFrame.src = "/login";
 	}
 	
 
@@ -51,7 +52,7 @@ define(["third/echarts.min"], function(echarts) {
 	 */
 	MainFrame.prototype.initHeader = function() {
 		var htmlstr = [];
-		htmlstr.push('<div class="xhui-layout-logo " ></div>');
+		htmlstr.push('<div class="xhui-layout-logo" ></div>');
 		htmlstr.push('<div class="xhui-layout-header-left" >');
 		htmlstr.push('	<div class="xhui-coolbar-container" _selectabletype_="false" style="user-select: none;">');
 		htmlstr.push('		<ul class="xhui-coolbar-group">');
@@ -59,7 +60,7 @@ define(["third/echarts.min"], function(echarts) {
 		htmlstr.push('			<div id="datasource"><span class="xhui-coolbar-item-text">' + "数据源"+ '</span></div>');
 		htmlstr.push('			<span class="xhui-coolbar-more  xhui-hide"></span>');
 		htmlstr.push('		</li>');
-		htmlstr.push('		<li class="xhui-coolbar-item xhui-coolbar-group" id="datasubjct">');
+		htmlstr.push('		<li class="xhui-coolbar-item xhui-coolbar-group" id="datasubject">');
 		htmlstr.push('			<span class="xhui-coolbar-item-text">' + "数据集 "+ '</span>');
 		htmlstr.push('			<span class="xhui-coolbar-more  xhui-hide"></span>');
 		htmlstr.push('		</li>');
@@ -80,12 +81,20 @@ define(["third/echarts.min"], function(echarts) {
 	 * 绑定顶部按钮栏事件
 	 */
 	MainFrame.prototype.bindHeaderEvent = function() {
+		var self = this;
 		this.dSourceBtn = this.doc.getElementById("datasource");
 		this.dSourceBtn.onclick = function(){
-			this.mainFrame.src = DATASOURCE_URL;
+			self.mainFrame.src = DATASOURCE_URL;
 		}
 		this.dSubjectBtn = this.doc.getElementById("datasubject");
+		this.dSubjectBtn.onclick = function(){
+			self.mainFrame.src = DATASUBJECT_URL;
+		}
+		
 		this.dAnalyseBtn = this.doc.getElementById("dataanalyse");
+		this.dAnalyseBtn.onclick = function(){
+			self.mainFrame.src = LOGIN_URL;
+		}
 		this.systemBtn = this.doc.getElementById("systemset");
 	}
 	

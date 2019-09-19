@@ -15,7 +15,6 @@
 <script src="/util/xhui.js"></script>
 <script src="/third/require.js"></script>
 <script>
-debugger
 	require(['../main/js/login'], function (loginFrame){
 		var frame = new loginFrame.LoginFrame({
 			wnd:window,
