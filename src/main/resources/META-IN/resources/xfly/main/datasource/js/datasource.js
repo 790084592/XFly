@@ -27,6 +27,7 @@ define(["third/echarts.min"], function(echarts) {
      */
 	DataSource.prototype.initPage = function() {
 		this.initUI();	   //初始化界面框架
+		this.initLeftPanel(); //绑定左侧界面事件
 	} 
 	
 	/**
@@ -47,15 +48,22 @@ define(["third/echarts.min"], function(echarts) {
 		htmlStr.push('			</li>');
 		htmlStr.push('			<li class="xhui-coolbar-line"></li>');
 		htmlStr.push('		</ul>');
+		htmlStr.push('	</div>');
 		htmlStr.push('</div>');
 		//右侧
 		htmlStr.push('<div class="xhui-layout-content-tab xhui-tab-addnav  ">');
+		htmlStr.push('	<iframe id="fileframe" style="width:100%; height:100%" frameborder="0" marginheight="0" marginwidth="0" allowfullscreen="true"></iframe>');
 		htmlStr.push('</div>');
 		this.container.innerHTML = htmlStr.join("");
+		this.mainFrame = this.doc.getElementById("fileframe");
 	}
 	
 	DataSource.prototype.initLeftPanel = function() {
-		
+		var self = this;
+		this.fileListBtn = this.doc.getElementById("filedatasource");
+		this.fileListBtn.onclick = function(){
+			self.mainFrame.src = "/datasource/filelist";
+		}
 	}
 	
 	DataSource.prototype.initRightPanel = function() {

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
    *    数据源处理
  * 1.跳转到数据源界面
+ * 2.跳转到文件数据源界面
  * @author xush
  * @since  2019年9月19日
  */
@@ -15,6 +16,11 @@ public class ActionDataSource {
 	@RequestMapping("/datasource")
 	public String toDataSource(){
 		return "datasource/datasource";
+	}
+	
+	@RequestMapping("/datasource/filelist")
+	public String toFileListFrame(){
+		return "datasource/filelist";
 	}
 	
 
