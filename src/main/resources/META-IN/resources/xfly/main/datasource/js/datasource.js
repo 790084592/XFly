@@ -51,8 +51,14 @@ define(["third/echarts.min"], function(echarts) {
 		htmlStr.push('	</div>');
 		htmlStr.push('</div>');
 		//右侧
-		htmlStr.push('<div class="xhui-layout-content-tab xhui-tab-addnav  ">');
-		htmlStr.push('	<iframe id="fileframe" style="width:100%; height:100%" frameborder="0" marginheight="0" marginwidth="0" allowfullscreen="true"></iframe>');
+		htmlStr.push('<div class="xhui-layout-content-tab xhui-tab-addnav ">');
+		htmlStr.push('	<div class="xhui-layout-container">');
+		htmlStr.push('		<div class="xhui-layout-row-1 xhui-layout-row-first xhui-padding-right-20 xhui-layout-nav">' + "面包屑 /  文件数据源" + '');
+		htmlStr.push('		</div>');
+		htmlStr.push('		<div class="xhui-layout-row-3 xhui-layout-row-offset-1 xhui-layout-row-last xhui-card-container-bg">');	
+		htmlStr.push('				<iframe id="fileframe" style="width:100%; height:100%" frameborder="0" marginheight="0" marginwidth="0" allowfullscreen="true"></iframe>');
+		htmlStr.push('		</div>');
+		htmlStr.push('	</div>');
 		htmlStr.push('</div>');
 		this.container.innerHTML = htmlStr.join("");
 		this.mainFrame = this.doc.getElementById("fileframe");

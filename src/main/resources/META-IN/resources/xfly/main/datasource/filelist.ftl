@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="/webjars/bootstrap/3.3.5/css/bootstrap.min.css" />
 <link href="/third/webjars/bootstrap-table.css" rel="stylesheet">
 <body>
-	<div class="xhui-layout-body" id="filelist_container">
+	<div class="xhui-layout-container" id="filelist_container">
 </div>
 </body>
 

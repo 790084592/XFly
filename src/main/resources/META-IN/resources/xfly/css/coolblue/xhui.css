@@ -9953,19 +9953,11 @@ table {
 }
 
 .xhui-layout-row-offset-1 {
-  top: 50px;
+  top: 30px;
 }
 
-.xhui-layout-row-offset-2 {
-  top: 100px;
-}
-
-.xhui-layout-row-offset-3 {
-  top: 150px;
-}
-
-.xhui-layout-row-offset-4 {
-  top: 200px;
+.xhui-layout-row-offsetbottom-min {
+  bottom: 30px;
 }
 
 .xhui-layout-row-offsetbottom-1 {
@@ -11599,6 +11591,12 @@ button, input, optgroup, option, select, textarea {
 	background: #f0f2f5;
 }
 
+.xhui-card-container-bg {
+  left: 20;
+  right: 20;
+  background-color: #fff;
+}
+
 .xhui-title {
 	height: 26px;
 	text-align:left;
@@ -11625,6 +11623,18 @@ button, input, optgroup, option, select, textarea {
 .xhui-blue-num-text {
 	color: #31B4C9;
 	font-size: 20px;
+}
+
+
+.xhui-layout-copyright {
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  color: #97a7bb;
+}
+
+.xhui-layout-nav{
+  height: 30px;
 }
 
 /*# sourceMappingURL=xhui.css.map */
