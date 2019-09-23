@@ -9953,7 +9953,7 @@ table {
 }
 
 .xhui-layout-row-offset-1 {
-  top: 30px;
+  top: 50px;
 }
 
 .xhui-layout-row-offsetbottom-min {
@@ -9963,6 +9963,11 @@ table {
 .xhui-layout-row-offsetbottom-1 {
   bottom: 50px;
 }
+
+.xhui-layout-row-offsetbottom-2list {
+  bottom: 60px;
+}
+
 
 .xhui-container {
   position: relative;
