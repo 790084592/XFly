@@ -14,6 +14,7 @@
 <script src="/webjars/jquery/3.1.1/jquery.min.js"></script>  
 <script src="/webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script> 
 
+<script src="/util/xhui.js"></script>
 <script src="/third/webjars/bootstrap-table.js"></script>
 <script src="/third/webjars/bootstrap-table-zh-CN.min.js"></script>
 <script src="/third/require.js"></script>

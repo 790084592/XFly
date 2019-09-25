@@ -10,7 +10,6 @@ define(["/third/echarts.min.js"], function(echarts) {
 		this.doc = this.wnd.document;
 		this.container = options.container;
 		this.initPage(); // 初始化界面
-		this.initRightPanel();
 	}
     
 	/**
@@ -22,6 +21,7 @@ define(["/third/echarts.min.js"], function(echarts) {
 		this.container = null;
 		this.toolbar = null;
 		this.list = null;
+		this.addbtn = null;
 	}
 	
 	
@@ -29,7 +29,9 @@ define(["/third/echarts.min.js"], function(echarts) {
      * 初始化界面
      */
 	FileList.prototype.initPage = function() {
-		this.initUI();	   //初始化界面框架
+		this.initUI();	    //初始化界面框架
+		this.initToolBar(); //初始化顶部工具栏
+		this.initAddDataSourceDlg(); //初始化新建数据源对话框
 	} 
 	
 	/**
@@ -96,7 +98,10 @@ define(["/third/echarts.min.js"], function(echarts) {
 		
 	}
 	
-	FileList.prototype.initRightPanel = function() {
+	/**
+	 * 初始化，顶部工具栏按钮
+	 */
+	FileList.prototype.initToolBar = function() {
 		var htmlStr = [];
 		htmlStr.push('<div class="btn-group">');
 		htmlStr.push('	<div class="btn-group">');
@@ -104,7 +109,10 @@ define(["/third/echarts.min.js"], function(echarts) {
 		htmlStr.push('     		<span class="caret"></span>');
 		htmlStr.push('		 </button>');
 		htmlStr.push('		 <ul class="dropdown-menu">');
-		htmlStr.push('     		<li><button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Excel</button></li>');
+		htmlStr.push('     		<li role="presentation">');
+		htmlStr.push(' 				<a id="addbutton" role="menuitem" tabindex="-1" href="#">Excel</a>');
+        htmlStr.push(' 			</li>');
+		htmlStr.push('     		<li role="presentation" class="divider"></li>');
 		htmlStr.push('     		<li><a href="#">其他</a></li>');
 		htmlStr.push(' 		</ul>');
 		htmlStr.push('	</div>');
@@ -112,28 +120,97 @@ define(["/third/echarts.min.js"], function(echarts) {
 		htmlStr.push('	<button type="button" class="btn btn-default">刷新</button>');
 		htmlStr.push('</div>');
 		this.toolbar.innerHTML = htmlStr.join("");
-		
+		this.addbtn = this.doc.getElementById("addbutton");
+	}
+	
+	/**
+	 * 初始化，新建数据源对话框
+	 */
+	FileList.prototype.initAddDataSourceDlg = function() {
+		var self = this;
+		//建立在iframe之外，实现模态背景的最大化
+		var basedoc = this.wnd.parent.parent.document;
+		var h = basedoc.body.offsetHeight; //对话框高度位置调整
 		var model = this.doc.createElement("div");
 		var modelHtml = [];
-		modelHtml.push('<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">');
-		modelHtml.push('<div class="modal-dialog">');
+		modelHtml.push('<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">');
+		modelHtml.push('<div class="modal-dialog" style=";top:' + (h-173.3)/2 + 'px;">');
 		modelHtml.push('    <div class="modal-content">');
 		modelHtml.push('        <div class="modal-header">');
 		modelHtml.push('             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>');
-		modelHtml.push('            <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>');
+		modelHtml.push('            <h4 class="modal-title" id="myModalLabel">新建文件数据源</h4>');
 		modelHtml.push('        </div>');
-		modelHtml.push('        <div class="modal-body">在这里添加一些文本</div>');
+		modelHtml.push('        <div class="modal-body form-group">');
+		modelHtml.push('        	<div class="form-group">');
+		modelHtml.push('        		<form class="bs-example bs-example-form" role="form">');
+		modelHtml.push('        			<div class="col-sm-2 control-label">选择文件</div>');
+		modelHtml.push('        	 		<div class="col-sm-6">');
+		modelHtml.push('        	  	  		<div class="input-group">');
+		modelHtml.push('        	   	    		<input id="location" class="form-control">');
+		modelHtml.push('        	   	      	  <label class="input-group-btn">');
+		modelHtml.push('        	  	       	     	<input type="button" id="i-check" value="上传"  class="btn btn-primary" onclick="$(\'#i-file\').click();">');
+		modelHtml.push('        	  	      	  	</label>');
+		modelHtml.push('        	  	 		</div>');
+		modelHtml.push('        			</div>');
+		modelHtml.push('        			<input type="file" name="file" id="i-file"  accept=".xls, .xlsx" onchange="$(\'#location\').val($(\'#i-file\').val());"  style="display: none">');
+		modelHtml.push('        			<br>');
+		modelHtml.push('        		</form>');
+		modelHtml.push('			</div>');
+		modelHtml.push('		</div>');
 		modelHtml.push('        <div class="modal-footer">');
-		modelHtml.push('            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>');
-		modelHtml.push('            <button type="button" class="btn btn-primary">提交更改</button>');
+		modelHtml.push('            <button id="doaddExcel" type="button" class="btn btn-primary">确定</button>');
+		modelHtml.push('            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>');
 		modelHtml.push('        </div>');
 		modelHtml.push('    </div><!-- /.modal-content -->');
 		modelHtml.push('</div><!-- /.modal -->');
 		modelHtml.push('</div>');
+		modelHtml.push('<div class="modal-backdrop fade in xhui-hide"></div>');
 	    model.innerHTML = modelHtml.join("");
-	    debugger
-	    this.container.appendChild(model);
+	    basedoc.body.appendChild(model);
+	    this.addbtn.onclick = function(){
+	    	$(model.firstChild).modal('show');
+	    	//显示模态背景
+	    	model.lastChild.className = model.lastChild.className.replace("xhui-hide", "");
+	    }
+	    //关闭对话框，触发事件
+	    $(model.firstChild).on('hide.bs.modal', function () {
+	    	model.lastChild.className += " xhui-hide "; //隐藏模态背景
+	    });
+	    //对话框，确定按钮的点击事件
+	    var addExcelBtn = basedoc.getElementById("doaddExcel");
+	    addExcelBtn.onclick = function(){
+	    	self.UpladFile();
+	    	 $(model.firstChild).modal('hide')
+	    }
 	}
+	
+	//上传文件方法
+	FileList.prototype.UpladFile = function() {
+        var fileObj = this.wnd.parent.parent.document.getElementById("i-file").files[0]; // js 获取文件对象
+        if(!fileObj){
+        	alert("上传表格文件不得为空");
+        	return;
+        }
+        var type = fileObj.name.split(".")[1];
+        XHUI.post({
+        	action : "/excel/import",
+        	datas:{
+        		type: type,
+        		file: fileObj
+        	},
+        	callback: function(evt){
+        		var data = evt.target.responseText;
+                if(data){
+                	 alert("上传成功！\n" + data);
+                }else{
+                	alert("上传失败1！");
+                }
+        	},
+        	error:function(evt) {
+            	alert("上传失败2！");
+            }
+        });
+    }
 
 	return {
 		FileList : FileList
