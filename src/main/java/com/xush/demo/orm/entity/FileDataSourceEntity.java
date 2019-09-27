@@ -1,4 +1,4 @@
-package com.xush.demo.orm.filedatasource;
+package com.xush.demo.orm.entity;
 
 import java.io.Serializable;
 

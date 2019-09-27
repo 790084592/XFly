@@ -1,4 +1,4 @@
-package com.xush.demo.orm.filedatasource;
+package com.xush.demo.orm.service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +11,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
+
+import com.xush.demo.orm.entity.FileDataSourceEntity;
+import com.xush.demo.orm.mapper.FileDataSourceMapper;
 
 @ComponentScan({ "com.xush.demo.orm.filedatasource" })
 @Service
@@ -71,9 +74,9 @@ public class FileDataSourceService {
 				});
 		return list;
 	}
-	
+
 	public int getTotalCounts() {
-	 return FileDataSourceMapper.getTotalCounts();
+		return FileDataSourceMapper.getTotalCounts();
 	}
 
 }
