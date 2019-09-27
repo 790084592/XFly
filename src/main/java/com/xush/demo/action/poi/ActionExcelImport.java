@@ -44,7 +44,12 @@ public class ActionExcelImport {
 	public ObjectNode excelImport(HttpServletRequest req) throws Exception {
 		String tag = req.getParameter("type");
 		InputStream in = req.getPart("file").getInputStream();
-		ObjectNode excelData = ExcelFunc.analysisExcelByTag(in, tag);
+		ObjectNode excelData = null;
+		try {
+			excelData = ExcelFunc.analysisExcelByTag(in, tag);
+		}finally {
+			in.close();
+		}
 		return excelData;
 	}
 

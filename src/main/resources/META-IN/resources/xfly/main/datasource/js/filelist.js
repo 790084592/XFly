@@ -42,37 +42,57 @@ define(["/third/echarts.min.js"], function(echarts) {
 		htmlStr.push('<div id="toolbar" class="xhui-layout-row-1 xhui-layout-row-first xhui-layout-nav">');
 		htmlStr.push('</div>');
 		htmlStr.push('<div class="xhui-layout-row-3 xhui-layout-row-offset-1 xhui-layout-row-last xhui-layout-row-offsetbottom-2list ">');	
-		htmlStr.push('	<table id="filelist" class="table table-striped "></table>');
+		htmlStr.push('	<table id="filelist" class="table table-condensed "></table>');
 		htmlStr.push('</div>');
 		this.container.innerHTML = htmlStr.join("");
 
 		this.toolbar = this.doc.getElementById("toolbar");
 		this.list = $('#filelist');
+		var listWidth = this.toolbar.offsetWidth;
 		this.list.bootstrapTable({
 			striped: true, //行之间间隔色
 			cache: false,
 			pagination: true, 
-			pageList:[10,50,100],
-			pageSize: 10,                     //每页的记录行数（*）
+			url: "/datasource/listFileDataSource", 
+			sidePagination: "server",
+			pageList:[1,2,10,50,100],
+			pageSize: 1,                     //每页的记录行数（*）
+			queryParams : function (params) {
+				//这里的键的名字和控制器的变量名必须一致，这边改动，控制器也需要改成一样的
+				var temp = {   
+				pageSize: params.limit,                         //页面大小
+				pageIndex: (params.offset / params.limit) + 1,   //页码
+				sort: params.sort,      //排序列名  
+				sortOrder: params.order //排位命令（desc，asc） 
+				};
+				return temp;
+			},
 			columns: [
 				{
 					checkbox: true,  
 					visible: true       //是否显示复选框  
 				},{
-					field: 'caption',
-					title: "数据源标题"
+					field: 'id',
+					title: "数据源标题",
+					width: listWidth/5
 				},{
-					field: 'filename',
-					title: "文件名称"
+					field: 'name',
+					title: "文件名称",
+					width: listWidth/5
 				}, {
-					field: "filetype",
-					title: "文件类型"
+					field: "type",
+					title: "文件类型",
+					align: 'center',
+                    colspan: 1,
+					width: listWidth/10
 				}, {
-					field: "uploadtime",
-					title: "上传时间"
+					field: "createDate",
+					title: "上传时间",
+					width: listWidth/5
 				},{
 					field: 'oper',
 					title: "操作",
+					width: 3*listWidth/10,
 					formatter: function(value, row, index){
 						var id = value;
 						var result = "";
@@ -83,15 +103,6 @@ define(["/third/echarts.min.js"], function(echarts) {
 					}
 				}
 			]});
-		var data = {
-				"caption" : "卫生数据",
-				"filename" : "卫生数据-2019",
-				"filetype":"Excel",
-				"uploadtime":"2019.09.10",
-				"oper":"1"};
-		for(var i =0; i<55; i++){
-			this.list.bootstrapTable('append', [data]);
-		}
 	}
 	
 	FileList.prototype.initLeftPanel = function() {
@@ -113,7 +124,9 @@ define(["/third/echarts.min.js"], function(echarts) {
 		htmlStr.push(' 				<a id="addbutton" role="menuitem" tabindex="-1" href="#">Excel</a>');
         htmlStr.push(' 			</li>');
 		htmlStr.push('     		<li role="presentation" class="divider"></li>');
-		htmlStr.push('     		<li><a href="#">其他</a></li>');
+		htmlStr.push('     		<li role="presentation">');
+		htmlStr.push(' 				<a id="otherbutton" role="menuitem" tabindex="-1" href="#">其他</a>');
+        htmlStr.push(' 			</li>');
 		htmlStr.push(' 		</ul>');
 		htmlStr.push('	</div>');
 		htmlStr.push('	<button type="button" class="btn btn-default">删除</button>');
@@ -192,10 +205,15 @@ define(["/third/echarts.min.js"], function(echarts) {
         	return;
         }
         var type = fileObj.name.split(".")[1];
+        if(type!="xls" && type!="xlsx"){
+        	alert("请确保上传的Excel文件为xls或xlsx格式！");
+        	return;
+        }
         XHUI.post({
-        	action : "/excel/import",
+        	action : "/datasource/uploadDataSource",
         	datas:{
-        		type: type,
+        		type: 0,
+        		tag : type,
         		file: fileObj
         	},
         	callback: function(evt){

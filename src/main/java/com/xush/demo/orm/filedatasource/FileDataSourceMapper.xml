@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
+<mapper namespace="com.xush.demo.orm.filedatasource.FileDataSourceMapper">
+
+	<!-- insert user -->
+	<insert id="insert"
+		parameterType="com.xush.demo.orm.filedatasource.FileDataSourceEntity">
+		INSERT INTO XFLY_FILEDATASOURCE(ID,NAME,PATH,TYPE,CREATEDATE,CREATOR)
+		VALUES(#{id},#{name},#{path},#{type},#{createDate},#{creator})
+		<!-- 这里sql结尾不能加分号，否则报“ORA-00911”的错误 -->
+	</insert>
+
+	<!-- update user -->
+	<update id="update"
+		parameterType="com.xush.demo.orm.filedatasource.FileDataSourceEntity">
+		UPDATE XFLY_FILEDATASOURCE SET NAME = #{name} ,
+		PATH = #{path} , TYPE = #{type}, CREATEDATE = #{createDate},
+		CREATOR = #{creator}
+		WHERE ID=#{id}
+	</update>
+
+	<!-- find user -->
+	<select id="find" parameterType="String"
+		resultType="com.xush.demo.orm.filedatasource.FileDataSourceEntity">
+		SELECT ID,NAME,PATH,TYPE,CREATEDATE,CREATOR FROM XFLY_FILEDATASOURCE WHERE ID=#{0}
+	</select>
+
+	<!-- delete user -->
+	<delete id="delete" parameterType="String">
+		DELETE FROM XFLY_FILEDATASOURCE WHERE
+		ID=#{0}
+	</delete>
+	
+	<!-- get counts -->
+	<select id="getTotalCounts" resultType="int">
+		SELECT COUNT(*) AS TOTAL_COUNTS FROM XFLY_FILEDATASOURCE
+	</select>
+</mapper>

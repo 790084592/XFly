@@ -1,5 +1,9 @@
 package com.xush.demo.action;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -38,7 +42,7 @@ public class ActionLogin {
 	public String doLogin(HttpServletRequest req) {
 		req.setAttribute("title", "登录");
 		String account = req.getParameter("account");
-		String password = req.getParameter("password");
+		String password = req.getParameter("password");		
 		if (account != null && account.equals(password)) {
 			HttpSession session = req.getSession();
 			session.setAttribute("account", account);
