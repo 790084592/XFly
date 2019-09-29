@@ -266,6 +266,27 @@
   overflow-y: scroll;
 }
 
+.bootstrap-table .thead-blue th {
+color: #fff;
+background-color: #3195f1;
+border-color: #0d7adf;
+}
+
+.bootstrap-table .thead-blue th {
+color: #fff;
+background-color: #3195f1;
+border-color: #0d7adf;
+}
+
+.bootstrap-table .thead-gray th {
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+background: #f8f7fc;
+border-top: 1px solid #ebeff5;
+border-bottom: 1px solid #ebeff5;
+}
+
 /* calculate scrollbar width */
 div.fixed-table-scroll-inner {
   width: 100%;

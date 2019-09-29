@@ -42,7 +42,7 @@ define(["/third/echarts.min.js"], function(echarts) {
 		htmlStr.push('<div id="toolbar" class="xhui-layout-row-1 xhui-layout-row-first xhui-layout-nav">');
 		htmlStr.push('</div>');
 		htmlStr.push('<div class="xhui-layout-row-3 xhui-layout-row-offset-1 xhui-layout-row-last xhui-layout-row-offsetbottom-2list ">');	
-		htmlStr.push('	<table id="filelist" class="table table-condensed "></table>');
+		htmlStr.push('	<table id="filelist" class="table table-hover "></table>');
 		htmlStr.push('</div>');
 		this.container.innerHTML = htmlStr.join("");
 
@@ -50,8 +50,9 @@ define(["/third/echarts.min.js"], function(echarts) {
 		this.list = $('#filelist');
 		var listWidth = this.toolbar.offsetWidth;
 		this.list.bootstrapTable({
-			striped: true, //行之间间隔色
 			cache: false,
+			theadClasses: "thead-gray",//这里设置表头样式
+		    classes: "table table-hover",
 			pagination: true, 
 			url: "/datasource/listFileDataSource", 
 			sidePagination: "server",
@@ -82,9 +83,7 @@ define(["/third/echarts.min.js"], function(echarts) {
 				}, {
 					field: "type",
 					title: "文件类型",
-					align: 'center',
-                    colspan: 1,
-					width: listWidth/10
+					width: listWidth/5
 				}, {
 					field: "createDate",
 					title: "上传时间",
@@ -92,7 +91,7 @@ define(["/third/echarts.min.js"], function(echarts) {
 				},{
 					field: 'oper',
 					title: "操作",
-					width: 3*listWidth/10,
+					width: 2*listWidth/5,
 					formatter: function(value, row, index){
 						var id = value;
 						var result = "";
@@ -114,9 +113,8 @@ define(["/third/echarts.min.js"], function(echarts) {
 	 */
 	FileList.prototype.initToolBar = function() {
 		var htmlStr = [];
-		htmlStr.push('<div class="btn-group">');
 		htmlStr.push('	<div class="btn-group">');
-		htmlStr.push('		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">新建');
+		htmlStr.push('		<button type="button" class="btn btn-default dropdown-toggle xhui-link" style=";border:1px solid #4122eb;" data-toggle="dropdown">新建');
 		htmlStr.push('     		<span class="caret"></span>');
 		htmlStr.push('		 </button>');
 		htmlStr.push('		 <ul class="dropdown-menu">');
@@ -129,11 +127,14 @@ define(["/third/echarts.min.js"], function(echarts) {
         htmlStr.push(' 			</li>');
 		htmlStr.push(' 		</ul>');
 		htmlStr.push('	</div>');
-		htmlStr.push('	<button type="button" class="btn btn-default">删除</button>');
-		htmlStr.push('	<button type="button" class="btn btn-default">刷新</button>');
-		htmlStr.push('</div>');
+		htmlStr.push('	<button type="button" class="btn btn-default xhui-link" style=";border:1px solid #4122eb;">删除</button>');
+		htmlStr.push('	<button id="refreshbtn" type="button" class="btn btn-default xhui-link" style=";border:1px solid #4122eb;">刷新</button>');
 		this.toolbar.innerHTML = htmlStr.join("");
 		this.addbtn = this.doc.getElementById("addbutton");
+		this.refreshbtn = this.doc.getElementById("refreshbtn");
+		this.refreshbtn.onclick = function(){
+			$('#filelist').bootStrapTable('refresh');
+		};
 	}
 	
 	/**
