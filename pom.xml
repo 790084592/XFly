@@ -92,6 +92,13 @@
 		</dependency>
 		<!-- Oracle数据库驱动 ↑-->
 		
+		<!-- MySql数据库驱动 ↓-->
+		<dependency>
+		  <groupId>mysql</groupId>
+		  <artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<!-- MySql数据库驱动 ↑-->
+		
 		<!--bootstrap UI集成 ↓-->
 		<dependency>  
             <groupId>org.webjars</groupId>  
