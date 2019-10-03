@@ -40,6 +40,7 @@ public class TableCreator {
 			sf.append(")");
 			JdbcFunc.createTable(sf.toString(), jdbcTemplate);
 		}
+
 	}
 
 }

@@ -17,7 +17,8 @@ public class JdbcFunc {
 	 * @return
 	 */
 	public static boolean checkTableExist(String tableName, JdbcTemplate jdbcTemplate) {
-		String sql = "select count(*) as answer from user_tables where table_name =upper('" + tableName + "')";
+		String sql = String.format("select count(*) as answer from INFORMATION_SCHEMA.TABLES whereTABLE_SCHEMA='%s' and TABLE_NAME='%s' ;", "test",tableName );
+//		String sql = "select count(*) as answer from user_tables where table_name =upper('" + tableName + "')";
 		if(jdbcTemplate == null) {
 			System.out.println("----jdbc null");
 		}
