@@ -13,11 +13,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import com.xush.demo.util.JdbcFunc;
-
 /**
  * 项目系统表建立与检测
- * 
  * @author xush
  * @since 2019年9月26日
  */
@@ -29,19 +26,21 @@ public class TableCreator {
 
 	@Value("${xfly.datasource.type}")
 	private String dataBaseType;
+	
+	@Value("${spring.datasource.username}")
+	private String dataBaseUser;
 
 	public static final String MYSQL = "MYSQL";
 
 	public static final String ORACLE = "ORACLE";
+	
 
 	/**
 	 * 配置系统表
-	 * 
 	 * @throws ParseException
 	 */
 	@PostConstruct
 	public void init() throws ParseException {
-		System.out.println("   = " + dataBaseType);
 		boolean exist = checkTableExist("XFLY_FILEDATASOURCE");
 		if (!exist) {
 			createDataSourceTable();
@@ -65,8 +64,7 @@ public class TableCreator {
 	}
 
 	/**
-	 * 获取sql语句
-	 * 
+	 * 获取创建mysql文件数据源表的sql语句
 	 * @return
 	 */
 	public String getCreateDataSourceSql2MySql() {
@@ -83,8 +81,7 @@ public class TableCreator {
 	}
 
 	/**
-	 * 获取sql语句
-	 * 
+	 * 获取创建oracle文件数据源表的sql语句
 	 * @return
 	 */
 	public String getCreateDataSourceSql2Oracle() {
@@ -102,7 +99,6 @@ public class TableCreator {
 
 	/**
 	 * 检查数据库表是否存在
-	 * 
 	 * @param tableName
 	 * @return
 	 */
@@ -129,16 +125,26 @@ public class TableCreator {
 		return false;
 	}
 
+	/**
+	 * 获取mysql检查库表存在的语句
+	 * @param tableName
+	 * @return
+	 */
 	public String getCheckTableExistSql2MySql(String tableName) {
 		String sql = String.format(
 				"SELECT count(*) as answer FROM information_schema.TABLES WHERE table_name =upper('%s');", tableName);
 		return sql;
 	}
 
+	/**
+	 * 获取oracle监测库表存在的语句
+	 * @param tableName
+	 * @return
+	 */
 	public String getCheckTableExistSql2Oracle(String tableName) {
 		String sql = String.format(
 				"select count(*) as answer from INFORMATION_SCHEMA.TABLES whereTABLE_SCHEMA='%s' and TABLE_NAME=upper('%s')",
-				"test", tableName);
+				dataBaseUser, tableName);
 		return sql;
 	}
 

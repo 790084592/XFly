@@ -53,6 +53,7 @@ public class FileDataSourceService {
 		sf.append("						ORDER BY createDate DESC) tt");
 		sf.append("		 WHERE ROWNUM <= ").append((pageIndex) * pageSize).append(") table_alias ");
 		sf.append("WHERE table_alias.rowno >= ").append((pageIndex - 1) * pageSize + 1);
+		System.out.println(sf.toString());
 		ArrayList<FileDataSourceEntity> list = (ArrayList<FileDataSourceEntity>) jdbcTemplate.query(sf.toString(),
 				new RowMapper() {
 					public FileDataSourceEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
