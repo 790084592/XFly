@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
 <mapper namespace="com.xush.demo.orm.mapper.FileDataSourceMapper">
-
+	<resultMap id="BaseResultMap" type="com.xush.demo.orm.entity.FileDataSourceEntity">
+	      <id column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
+	      <result column="name" javaType="java.lang.String"  jdbcType="VARCHAR" property="64"/>
+	      <result  column="type" javaType="java.lang.String" jdbcType="NUMBER" />
+	      <result  column="path" javaType="java.lang.String" jdbcType="VARCHAR" />
+	      <result  column="createDate" javaType="java.lang.String" jdbcType="VARCHAR" />
+	      <result  column="creator" javaType="java.lang.String" jdbcType="VARCHAR" />
+	</resultMap>
 	<!-- insert user -->
 	<insert id="insert"
 		parameterType="com.xush.demo.orm.entity.FileDataSourceEntity">
@@ -37,4 +43,9 @@
 	<select id="getTotalCounts" resultType="int">
 		SELECT COUNT(*) AS TOTAL_COUNTS FROM XFLY_FILEDATASOURCE
 	</select>
+	
+	<select id="queryList" parameterType="map" resultType="com.xush.demo.orm.entity.FileDataSourceEntity">
+        select * from XFLY_FILEDATASOURCE limit #{currIndex} , #{pageSize}
+	</select>
+	
 </mapper>

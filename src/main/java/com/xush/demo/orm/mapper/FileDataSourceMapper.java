@@ -1,5 +1,8 @@
 package com.xush.demo.orm.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.xush.demo.orm.entity.FileDataSourceEntity;
@@ -16,4 +19,6 @@ public interface FileDataSourceMapper {
 	public FileDataSourceEntity find(String id);
 
 	public int getTotalCounts();
+	
+	public List<FileDataSourceEntity> queryList(Map<String, Object> data);
 }

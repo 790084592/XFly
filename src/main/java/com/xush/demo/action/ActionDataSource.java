@@ -1,12 +1,15 @@
 package com.xush.demo.action;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,18 +17,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import com.xush.demo.orm.entity.FileDataSourceEntity;
 import com.xush.demo.orm.service.FileDataSourceService;
 import com.xush.demo.util.ResourceFunc;
 
+import cn.hutool.core.util.XmlUtil;
+
 /**
-   *    数据源处理
- * 1.跳转到数据源界面
- * 2.跳转到文件数据源界面
- * 3.上传数据源文件
+ * 数据源处理 1.跳转到数据源界面 2.跳转到文件数据源界面 3.上传数据源文件
+ * 
  * @author xush
- * @since  2019年9月19日
+ * @since 2019年9月19日
  */
 @Controller
 public class ActionDataSource {
@@ -35,15 +40,26 @@ public class ActionDataSource {
 
 	/**
 	 * 跳转到数据源界面
+	 * 
 	 * @return
 	 */
 	@RequestMapping("/datasource")
 	public String toDataSource() {
+		URL s = this.getClass().getResource("");
+		File file = new File(s.getPath() + "/a.xml");
+		Document document = XmlUtil.readXML(file);
+		Element element = XmlUtil.getRootElement(document);
+		List<Element> childs = XmlUtil.getElements(element, "");
+		Element child1 = XmlUtil.getElement(element, "entity");
+		Element child11 = XmlUtil.getElement(child1, "properties");
+		Element child111 = XmlUtil.getElement(child11, "property");
+		int a = 1;
 		return "datasource/datasource";
 	}
 
 	/**
 	 * 跳转到文件数据源界面
+	 * 
 	 * @return
 	 */
 	@RequestMapping("/datasource/filelist")
@@ -53,6 +69,7 @@ public class ActionDataSource {
 
 	/**
 	 * 上传数据源文件
+	 * 
 	 * @param req
 	 * @return
 	 * @throws Exception
@@ -60,15 +77,15 @@ public class ActionDataSource {
 	@RequestMapping("/datasource/uploadDataSource")
 	@ResponseBody
 	public String uploadDataSource(HttpServletRequest req) throws Exception {
-		String type = req.getParameter("type"); //数据源类型
-		String tag = req.getParameter("tag"); //后缀名
-		String account = (String) req.getSession().getAttribute("account"); //用户账号
+		String type = req.getParameter("type"); // 数据源类型
+		String tag = req.getParameter("tag"); // 后缀名
+		String account = (String) req.getSession().getAttribute("account"); // 用户账号
 		InputStream in = req.getPart("file").getInputStream();
 		try {
 			int index;
 			byte[] bytes = new byte[1024];
-			String dsId = ResourceFunc.createDataSourceId(account, type); //资源ID
-			String sortPath = ResourceFunc.getFileDataSourcePath(dsId, tag); //服务器后台存储路径
+			String dsId = ResourceFunc.createDataSourceId(account, type); // 资源ID
+			String sortPath = ResourceFunc.getFileDataSourcePath(dsId, tag); // 服务器后台存储路径
 			FileOutputStream fos = new FileOutputStream(sortPath);
 			try {
 				while ((index = in.read(bytes)) != -1) {
@@ -90,6 +107,7 @@ public class ActionDataSource {
 
 	/**
 	 * 查询文件数据源列表
+	 * 
 	 * @param req
 	 * @return
 	 */

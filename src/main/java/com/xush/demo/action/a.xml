@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping>
+
+	<entity 
+		name="DeSensitiveFieldEntity" 
+		table="EDSC_DESENSITIVE_FLD" 
+		bean="com.esen.edatasecurity.api.entity.desensitive.DeSensitiveFieldEntity">
+		<properties>
+			<property name="id" field="ID_" caption="ID" nullable="false" unique="true" length="32" pk="true" />
+			<property name="assetId" field="ASSETID_" caption="资产ID" length="32" />
+			<property name="name" field="NAME_" caption="字段名" length="100" />
+			<property name="creator" field="CREATOR_" caption="创建者" nullable="false" unique="false" length="50" />
+			<property name="createDate" field="CREATEDATE_" caption="创建时间" nullable="false" unique="false" />
+			<property name="mender" field="MENDER_" caption="修改者" nullable="true" unique="false" length="50" />
+			<property name="modifyDate" field="MODIFYDATE_" caption="修改时间" nullable="true" unique="false" />
+			<property name="filter" field="FILTER_" caption="脱敏条件" length="1000" />
+			<property name="filterType" field="FILTERTYPE_" caption="脱敏条件类型" length="10" />
+			<property name="ruleName" field="RULENAME_" caption="脱敏规则" length="50" />
+		</properties>
+		<indexes>
+			<index name="INDEX_DESENSITZATION_FLD" fields="ASSETID_,NAME_" unique="true" />
+		</indexes>
+	</entity>
+</mapping>

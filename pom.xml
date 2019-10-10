@@ -85,12 +85,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>com.esen.jdbc</groupId>-->
-<!--			<artifactId>oracle_ojdbc6</artifactId>-->
-<!--			<version>1.0.0</version>-->
-<!--		</dependency>-->
-<!-- Oracle数据库驱动 ↑-->
+	    <dependency>
+			<groupId>com.esen.jdbc</groupId>
+			<artifactId>oracle_ojdbc6</artifactId>
+			<version>1.0.0</version>
+		</dependency> 
+		<!-- Oracle数据库驱动 ↑-->
 		
 		<!-- MySql数据库驱动 ↓-->
 		<dependency>

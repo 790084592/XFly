@@ -3,6 +3,8 @@ package com.xush.demo.orm.service;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -12,6 +14,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
+import com.xush.demo.db.DataBaseFactory;
+import com.xush.demo.db.DbConst;
+import com.xush.demo.db.DbHelper;
 import com.xush.demo.orm.entity.FileDataSourceEntity;
 import com.xush.demo.orm.mapper.FileDataSourceMapper;
 
@@ -41,21 +46,18 @@ public class FileDataSourceService {
 		FileDataSourceMapper.delete(id);
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ArrayList<FileDataSourceEntity> listDatas(int pageIndex, int pageSize) {
-		StringBuffer sf = new StringBuffer();
-		sf.append("SELECT *");
-		sf.append("FROM (	SELECT tt.*, ROWNUM AS rowno");
-		sf.append("		 FROM (	SELECT t.*");
-		sf.append("						FROM XFLY_FILEDATASOURCE t");
-		//		sf.append("							WHERE hire_date BETWEEN TO_DATE ('20060501', 'yyyymmdd')");
-		//		sf.append("									AND TO_DATE ('20060731', 'yyyymmdd')");
-		sf.append("						ORDER BY createDate DESC) tt");
-		sf.append("		 WHERE ROWNUM <= ").append((pageIndex) * pageSize).append(") table_alias ");
-		sf.append("WHERE table_alias.rowno >= ").append((pageIndex - 1) * pageSize + 1);
-		System.out.println(sf.toString());
-		ArrayList<FileDataSourceEntity> list = (ArrayList<FileDataSourceEntity>) jdbcTemplate.query(sf.toString(),
-				new RowMapper() {
+		DbHelper dbHelper = DataBaseFactory.getDbHelper();
+		//mysql数据库可以直接用mybatis
+		if(DbConst.MYSQL.equals(DataBaseFactory.getDbType())) {
+			Map<String, Object> data = new HashMap<String, Object> ();
+			data.put("currIndex", (pageIndex-1)*pageSize);
+			data.put("pageSize",  pageSize);
+			return (ArrayList<FileDataSourceEntity>) FileDataSourceMapper.queryList(data);
+		}
+		String sql = dbHelper.processPageSql("XFLY_FILEDATASOURCE", null, null, pageIndex, pageSize);
+		ArrayList<FileDataSourceEntity> list = (ArrayList<FileDataSourceEntity>) jdbcTemplate.query(sql,
+				new RowMapper<FileDataSourceEntity>() {
 					public FileDataSourceEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
 						FileDataSourceEntity entity = new FileDataSourceEntity();
 						String id = rs.getString("id");
